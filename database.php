@@ -80,7 +80,5 @@ class database{
             return "Failed to login. Please try again";
         }
     }
-
-
 }
 ?>
