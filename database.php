@@ -1,6 +1,7 @@
 <?php
 
-class database{
+class database
+{
 
     private $host;
     private $username;
@@ -8,19 +9,18 @@ class database{
     private $database;
     private $charset;
     private $db;
-    
-    // create class constants (admin and user)
-    const ADMIN = 1;
-    const USER = 2;
 
-    public function __construct($host, $username, $password, $database, $charset){
+    // create class constants (admin and user)
+
+    public function __construct($host, $username, $password, $database, $charset)
+    {
         $this->host = $host; //localhost
         $this->username = $username; //root
         $this->password = $password;
         $this->database = $database;
         $this->charset = $charset;
 
-        try{
+        try {
             // DSN connection method
             /*
             - mysql driver
@@ -33,7 +33,7 @@ class database{
 
             //   echo "Database connection successfully established";
 
-        }catch(PDOException $e){
+        } catch (PDOException $e) {
             // die and exit are equivalent
             // exit-> Output a message and terminate the current script
             die("Unable to connect: " . $e->getMessage());
@@ -41,46 +41,46 @@ class database{
 
     }
 
-    public function login($username, $password){
+    public function login($username, $password)
+    {
         $sql = "SELECT id, password FROM account WHERE username = :username";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->execute(['username'=>$username]);
+        $stmt->execute(['username' => $username]);
 
         // fetch should return an associative array (key, value pair)
         $result = $stmt->fetch();
 
         // check $result is an array
-        if(is_array($result)){
+        if (is_array($result)) {
 
             // apply count on if $result is an array
-            if(count($result) > 0){
+            if (count($result) > 0) {
 
                 // get hashed_password from database result with key 'password'
                 $hashed_password = $result['password'];
-    
+
                 // verife that user exists and that provided password is the same as the hashed password
-                if($username && password_verify($password, $hashed_password)){
+                if ($username && password_verify($password, $hashed_password)) {
                     session_start();
-    
+
                     // store userdata in session variables
                     $_SESSION['id'] = $result['id'];
                     $_SESSION['username'] = $username;
                     $_SESSION['loggedin'] = true;
-    
+
                     header("location: welcome.php");
 
-                }else{
+                } else {
                     // returned an error message to show in span element in login form (index.php)
                     return "Incorrect username and/or password. Please fix your input and try again.";
                 }
             }
-        }else{
+        } else {
             // no matching user found in db. Make sure not to tell the user.
             return "Failed to login. Please try again";
         }
     }
-
-
 }
+
 ?>

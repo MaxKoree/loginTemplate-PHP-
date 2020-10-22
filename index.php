@@ -2,15 +2,15 @@
 include 'database.php';
 
 // check the signup.php file for explanation on code
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit']) && !empty($_POST['submit'])){
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit']) && !empty($_POST['submit'])) {
 
 
-        $uname = trim($_POST['uname']);
-        $password = trim($_POST['pwd']);
+    $uname = trim($_POST['uname']);
+    $password = trim($_POST['pwd']);
 
-        $db = new database('localhost', 'root', '', 'project1', 'utf8');
+    $db = new database('localhost', 'root', '', 'project1', 'utf8');
 
-        $db->login($uname, $password);
+    $db->login($uname, $password);
 
 }
 
@@ -31,24 +31,25 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit']) && !empty($_P
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 </head>
 <body>
-  <h1>Login</h1>
+<h1>Login</h1>
 <div class="outer">
     <div class="middle">
         <div class="inner"
 
-             <div class="d-flex justify-content-center">
-                <form action="index.php" method="post">  <div class="form-group">
+        <div class="d-flex justify-content-center">
+            <form action="index.php" method="post">
+                <div class="form-group">
 
                     <label for="exampleInputEmail1">Username</label> <br>
-                    <input type="text" name="uname" placeholder="Username" required /><br>
+                    <input type="text" name="uname" placeholder="Username" required/><br>
                 </div>
                 <div class="form-group">
 
                     <label for="exampleInputPassword1">Password</label> <br>
-                    <input type="password" name="pwd" placeholder="Password" required /><br>
+                    <input type="password" name="pwd" placeholder="Password" required/><br>
 
                 </div>
-                <input type="submit" name='submit' /><br>
+                <input type="submit" name='submit'/><br>
             </form>
 
         </div>
